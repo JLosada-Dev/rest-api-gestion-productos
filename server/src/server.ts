@@ -1,32 +1,36 @@
-// Importación de librerías
-import express from 'express'; // Importamos express
-import colors from 'colors'; // Importamos colors
-import swaggerUi from 'swagger-ui-express'; // Importamos swagger-ui-express
-import swaggerSpec from './config/swagger'; // Importamos el archivo de configuración de swagger
-import router from './router'; // Importamos el router
-import db from './config/db'; // Importamos la base de datos
+import express from 'express';
+import colors from 'colors';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec, { swaggerUiOptions } from './config/swagger';
+import router from './router';
+import db from './config/db';
 
-// Conectar a la base de datos
+// Conectar a base de datos
 export async function connectDB() {
   try {
-    await db.authenticate(); // Autentica la conexión a la base de datos
-    await db.sync(); // Sincroniza los modelos de la base de datos con el esquema de la base de datos
-    // console.log(colors.blue.bold('Conectado a la base de datos')); // Muestra un mensaje de éxito cuando se conecta a la base de datos
+    await db.authenticate();
+    db.sync();
+    // console.log( colors.blue( 'Conexión exitosa a la BD'))
   } catch (error) {
-    console.log(error); // Muestra cualquier error que ocurra durante la conexión
-    console.log(colors.red.bold('Error al conectar a la base de datos')); // Muestra un mensaje de error cuando no se puede conectar a la base de datos
+    // console.log(error)
+    console.log(colors.red.bold('Hubo un error al conectar a la BD'));
   }
 }
-connectDB(); // Llama a la función connectDB para conectar a la base de datos
+connectDB();
 
 // Instancia de express
-const server = express(); // Crear instancia de express
+const server = express();
 
-// Middleware para leer datos de formularios
+// Leer datos de formularios
 server.use(express.json());
 
-// Documentación de la API
-server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // Middleware para mostrar la documentación de la API
+server.use('/api/products', router);
 
-// Exportación del servidor
+// Docs
+server.use(
+  '/docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, swaggerUiOptions)
+);
+
 export default server;
