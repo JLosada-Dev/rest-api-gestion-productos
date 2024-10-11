@@ -1,11 +1,7 @@
 import { Outlet } from 'react-router-dom'; // Outlet es un componente de react-router-dom que se utiliza para renderizar las rutas hijas de un componente padre.
 
 export default function layout() {
-  const a = 1;
-  const b = 2;
-  const c = a + b;
-  console.log(c);
-  console.log("Hola mundo");
+ 
   return (
     <>
       <header className="bg bg-slate-800">

@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from './layouts/Layout';
 import Products from './views/Products';
-import NewProduct from './views/NewProduct';
+import NewProduct, { action as newProductAction } from './views/NewProduct';
 
 // se declaran las rutas en un arreglo y después definiendo cada ruta en un objeto, se pueden tener rutas dentro de otras que se llaman rutas hijos, y compartir un layout o componente padre.
 export const router = createBrowserRouter([
@@ -18,6 +18,7 @@ export const router = createBrowserRouter([
         // ruta hijo NewProduct
         path: 'products/new',
         element: <NewProduct />,
+        action: newProductAction,
       },
     ],
   },
