@@ -22,6 +22,7 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
   /**  {
    En caso de necesitar otro layout o componente padre se puede declarar una nueva ruta.
      path: '/example',
